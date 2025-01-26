@@ -1,6 +1,6 @@
 <html>
-<?php
-$greetings = "🐘 - Hello!";
-echo $greetings;
-?>
+    <?php
+    $greetings = "🐘 - Hello!";
+    echo $greetings;
+    ?>
 </html>
