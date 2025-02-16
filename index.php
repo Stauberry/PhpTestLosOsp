@@ -1,93 +1,71 @@
 <html>
 <?php
+//</editor-fold desc="на всякий случай">
+ini_set("MEMORY_LIMIT", "128M");
+echo "<pre>";
 
-echo '<pre>';
-// комментарий 1 строка
-
-/* комментарий 2 абзац */
-
-//</editor-fold desc="комментарий 3 особый">
-
+/* функция разделения для удобного чтения */
 function newTitle($number, $title)
 {
-    echo '<br>' . $number . " " . $title . '<br>';
+    echo "<br>" . $number . " " . $title . "<br>". "<br>";
 }
-newTitle(1, "Приветствие");
 
-/* Приветствие */
-function sayHello($a) {
-    if (!is_int($a)) {
-        echo "Передался не целочисленный параметр\n";
-        return;
-    }
-    for ($i = 0; $i < $a; $i++) {
-        echo "hello world!\n";
-    }
-}
-sayHello(5);
-sayHello("5"); // Ошибка
-newTitle(2, "Сумма");
-
-/* Сложение цен */
-function returnPrice($firstPrice, $secondPrice)
+/* Выводит значения массива, увеличенные на 10 */
+newTitle(1, "Увеличение на 10");
+$array = [1 , 2, -3.14 , 10, -40];
+echo "Массив до: ";
+print_r($array);
+function plusTen($matrix)
 {
-    return $firstPrice + $secondPrice;
+    return $matrix + 10;
 }
-echo 'Сумма товара = ' . returnPrice(2 ,3);
-newTitle(3, "Вывод имени");
+$arrAfter = array_map('plusTen', $array);
+echo "Массив после: ";
+print_r($arrAfter);
 
-/**
- * Функция выводит имя пользователя используя ссылки
- * @param $name
- * @return void
- */
-function greeting(&$name): void
+/* сортировка массива по четности и нечетности */
+$secArray = [1, 2, 3, 4];
+newTitle(2, "array_filter");
+/* 1 вариант */
+
+//function oddFunc($matrix): int
+//{
+//    return !($matrix & 1);
+//}
+//function evenFunc($matrix): int
+//{
+//    return $matrix & 1;
+//}
+//echo "Четные: ";
+//print_r(array_filter($secArray, 'oddFunc'));
+//echo "Нечетные: ";
+//print_r(array_filter($secArray, 'evenFunc'));
+
+/* 2 вариант */
+function evenFunc($matrix): int
 {
-    $name = "Привет, $name!" . PHP_EOL;
-    echo $name;
+    return !($matrix & 1);
 }
-$name = 'Nik';
-greeting($name);
-newTitle(4, "Анонимная функция умножения на 2");
+echo "Четные: ";
+$oddNums = array_filter($secArray, 'evenFunc');
+print_r($oddNums);
+echo "Нечетные: ";
+$evenNums = array_diff($secArray, $oddNums);
+print_r($evenNums);
 
-$multiply = function (int $num) {echo $num * 2 . "\n";};
-$multiply(2);
-$multiply(4);
-newTitle(5, "Тоже самое но со стрелочной функцией");
-echo "ошибка";
-/* что то не так....хотя вроде работает
-$secret = fn($num) => $num * 2;
+/* 3 вариант */
 
-echo $secret(3) . "\n";
-echo $secret(5) . "\n";
-*/
+/* array chunk разбиение массива */
+newTitle(3, "array_chunk");
+$newArray = array_chunk($array, 2, true);
+echo "Массив до \"разреза\": ";
+print_r($array);
+echo "Массив после \"разреза на части по два\": ";
+print_r($newArray);
 
-/* 2ой вариант
-$secret = fn($num) => fn($snum) => $num * $snum;
-
-$multiplyBy3 = $secret(3);
-echo $multiplyBy3(5) . "\n";
-
-$multiplyBy5 = $secret(5);
-echo $multiplyBy5(2) . "\n";
-*/
-
-newTitle(6, "рекусривная функция обхода многомерного массива");
-
-/* вывод массива */
-$array = [
-        ["Nik", 27, 3700],
-        ["Alex", 23, 470],
-        ["Steve", 43, 3400]];
-
-function examination($matrix)
-{
-    foreach ($matrix as $item) {
-        print_r($item);
-    }
-}
-examination($array);
-newTitle(7, "array_map");
+/* использование in_array */
+newTitle(4, "in_array");
+$search = [1, 2, 1, 3, true, false];
 
 
 ?>
